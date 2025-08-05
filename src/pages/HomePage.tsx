@@ -1,44 +1,25 @@
-import { useState } from 'react'; // 1. Importar o hook de estado
-import { useNavigate } from 'react-router-dom';
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Terminal, Zap, Shield, Loader2 } from 'lucide-react'
-import { loginUser } from '@/services/authService'; // Importa a função do serviço
+import { useLogin } from '@/hooks/useLogin';
 
 export default function LoginPage() {
-  // 2. Criar estados para guardar os valores dos inputs
-  const navigate = useNavigate();
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
+    const {
+    username,
+    setUsername,
+    password,
+    setPassword,
+    isLoading,
+    error,
+    handleLogin,
+  } = useLogin();
 
-
-  // 3. Criar a função que lida com o envio do formulário
-  const handleSubmit = async (event: React.FormEvent) => {
-    event.preventDefault();
-    setIsLoading(true); // Inicia o loading
-    setError(null);     // Limpa erros anteriores
-
-    try {
-      // Chama o serviço com os dados do estado
-      // Nota: O serviço espera um campo 'email', estamos passando o 'username'
-      await loginUser({ username: username, password });
-      
-      // Se a chamada for bem-sucedida, navega para a home
-      navigate('/home');
-
-    } catch (err: any) {
-      // Se a chamada falhar, define a mensagem de erro
-      setError(err.message || "Erro ao tentar fazer login.");
-    } finally {
-      // Garante que o loading termine, independente do resultado
-      setIsLoading(false);
-    }
+  const onSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    handleLogin();
   };
-
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 flex items-center justify-center p-4">
@@ -67,8 +48,7 @@ export default function LoginPage() {
             </CardDescription>
           </CardHeader>
           <CardContent className="space-y-6">
-            {/* 4. Conectar a função ao 'onSubmit' do formulário */}
-            <form className="space-y-4" onSubmit={handleSubmit}>
+            <form className="space-y-4" onSubmit={onSubmit}>
               <div className="space-y-2">
                 <Label htmlFor="username" className="text-white font-medium">
                   Nome de usuário
@@ -79,7 +59,6 @@ export default function LoginPage() {
                   placeholder="Digite seu username"
                   className="bg-white/10 border-white/20 text-white placeholder:text-slate-400 focus:border-purple-400 focus:ring-purple-400/20"
                   required
-                  // 4a. Conectar o input ao estado
                   value={username}
                   onChange={(e) => setUsername(e.target.value)}
                   disabled={isLoading}
