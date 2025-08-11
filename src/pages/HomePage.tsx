@@ -4,11 +4,23 @@ import { Terminal, Zap, Shield, BarChart3, Settings, LogOut, Plus, Activity } fr
 import { useNavigate } from 'react-router-dom'
 import { logoutUser } from '@/services/authService'
 import { useApiTest } from '@/hooks/useApiTest'
+import { useCompanyRedirect } from '@/hooks/useCompanyRedirect'
 
 export default function HomePage() {
   const navigate = useNavigate()
   const { createNewTest, isCreating, testResult, error } = useApiTest()
+  const { user, isLoading } = useCompanyRedirect()
 
+  // Se estiver carregando, mostrar loading
+  if (isLoading) {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 flex items-center justify-center">
+        <div className="text-white text-xl">Carregando...</div>
+      </div>
+    );
+  }
+
+  // Se chegou até aqui, o usuário tem empresa (hook já validou)
   const handleLogout = () => {
     logoutUser()
     navigate('/login')
