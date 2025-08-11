@@ -8,8 +8,8 @@ import { useCompanyRedirect } from '@/hooks/useCompanyRedirect'
 
 export default function HomePage() {
   const navigate = useNavigate()
-  const { createNewTest, isCreating, testResult, error } = useApiTest()
-  const { user, isLoading } = useCompanyRedirect()
+  const { createNewTest, isCreating } = useApiTest()
+  const { isLoading } = useCompanyRedirect()
 
   // Se estiver carregando, mostrar loading
   if (isLoading) {

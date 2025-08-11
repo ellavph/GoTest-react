@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { loginUser } from "@/services/authService";
 
 
 export function useLogin() {
@@ -15,8 +14,7 @@ export function useLogin() {
         setError(null)
 
         try {
-            const response = await loginUser({ username, password })
-            
+
             // Se chegou até aqui, o login foi bem-sucedido
             // Token já foi salvo no localStorage pelo authService
             console.log('Login realizado com sucesso!')
