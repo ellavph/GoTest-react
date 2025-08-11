@@ -1,17 +1,21 @@
 import { Routes, Route } from 'react-router-dom';
-import LoginPage from './pages/HomePage';
-import HomePage from './pages/HomePage'; // 1. Importe a nova página
+import LoginPage from './pages/LoginPage';
+import HomePage from './pages/HomePage';
+import RegisterPage from './pages/RegisterPage';
 
 function App() {
   return (
     <Routes>
-      {/* A rota de login continua a mesma */}
+      {/* Rota de login */}
       <Route path="/login" element={<LoginPage />} />
 
-      {/* 2. Adicione a nova rota para a home */}
+      {/* Rota de cadastro */}
+      <Route path="/register" element={<RegisterPage />} />
+
+      {/* Rota da home */}
       <Route path="/home" element={<HomePage />} />
 
-      {/* É uma boa prática definir uma rota "padrão" ou "raiz" */}
+      {/* Rota padrão */}
       <Route path="/" element={<LoginPage />} />
     </Routes>
   );

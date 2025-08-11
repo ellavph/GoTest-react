@@ -15,7 +15,11 @@ export function useLogin() {
         setError(null)
 
         try {
-            await loginUser({ username, password })
+            const response = await loginUser({ username, password })
+            
+            // Se chegou até aqui, o login foi bem-sucedido
+            // Token já foi salvo no localStorage pelo authService
+            console.log('Login realizado com sucesso!')
             navigate('/home')
         } catch (err: any) {
             setError(err.message || 'Erro ao tentar fazer login.'); 

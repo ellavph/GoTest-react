@@ -3,6 +3,18 @@
 
 @custom-variant dark (&:is(.dark *));
 
+/* Previne flash branco */
+html {
+  background-color: #0f172a; /* slate-900 */
+}
+
+body {
+  background: linear-gradient(to bottom right, #0f172a, #581c87, #0f172a);
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;
+}
+
 @theme inline {
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);

@@ -4,10 +4,34 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Vite + React + TS</title>
+    <title>API Test Hub</title>
+    <style>
+      /* Previne o flash branco durante o carregamento */
+      html, body {
+        background-color: #0f172a; /* slate-900 */
+        margin: 0;
+        padding: 0;
+      }
+      
+      #root {
+        min-height: 100vh;
+        background: linear-gradient(to bottom right, #0f172a, #581c87, #0f172a);
+      }
+      
+      /* Loading spinner opcional */
+      .loading {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        color: white;
+      }
+    </style>
   </head>
   <body>
-    <div id="root"></div>
+    <div id="root">
+      <div class="loading">Carregando...</div>
+    </div>
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>

@@ -1,4 +1,3 @@
-// Em: src/services/authService.ts
 
 import apiClient from './api';
 import tokenService from './tokenService';
@@ -9,23 +8,19 @@ export interface AuthCredentials {
 }
 
 export interface AuthResponse {
-  status: boolean;
-  descricao: string;
-  data: {
-    token: string;
-  };
+  access_token: string;
 }
 
 export const loginUser = async (credentials: AuthCredentials): Promise<AuthResponse> => {
   try {
-    const response = await apiClient.post<AuthResponse>('/login', credentials);
-    const token = response.data.data.token;
+    const response = await apiClient.post<AuthResponse>('auth/login', credentials);
+    const token = response.data.access_token;
     
     if (token) {
       tokenService.saveToken(token);
     } else {
       // Se por algum motivo o token não vier na resposta de sucesso
-      throw new Error(response.data.descricao || "Token não encontrado na resposta.");
+      throw new Error("Token não encontrado na resposta.");
     }
 
     return response.data;
@@ -36,7 +31,6 @@ export const loginUser = async (credentials: AuthCredentials): Promise<AuthRespo
   }
 };
 
-// Você também pode adicionar uma função de logout aqui
 export const logoutUser = (): void => {
   tokenService.removeToken();
 };

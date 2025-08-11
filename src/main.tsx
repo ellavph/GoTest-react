@@ -7,7 +7,7 @@ import './index.css';
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
-    <BrowserRouter> {/* 2. Envolva o <App /> com ele */}
+    <BrowserRouter> {}
       <App />
     </BrowserRouter>
   </StrictMode>,
